@@ -1,0 +1,5 @@
+let resultado = [];
+for (contador = 5 contador; contador = contador - 1) {
+    console.log(contador * 2);
+}
+console.log(3 + 4 * 2);

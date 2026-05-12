@@ -1,0 +1,17 @@
+{
+  "name": "jssubset-analyzer",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Analizador de subconjunto de JavaScript con ANTLR4 - Tema 39568_15",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "generate": "java -jar antlr-4.9.2-complete.jar -Dlanguage=JavaScript -visitor -listener -o ./generated JSSubset.g4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "antlr4": "^4.9.2"
+  }
+}

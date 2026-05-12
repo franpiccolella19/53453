@@ -1,0 +1,43 @@
+GRAMÁTICA ASIGNADA — Tema 39568_15
+Materia: Sintaxis y Semántica de Lenguajes de Programación
+UTN FRM
+
+Gramática en notación ECMAScript que describe una porción reducida y adaptada del lenguaje JavaScript:
+
+Program          ::= { Statement }
+Statement        ::= ArrayDeclaration | ForStatement | ConsoleStatement
+ArrayDeclaration ::= "let" Identifier "=" "[" [ ExpressionList ] "]" ";"
+ExpressionList   ::= Expression { "," Expression }
+ForStatement     ::= "for" "(" AssignmentStatement Expression ";" AssignmentStatement ")" Block
+AssignmentStatement ::= Identifier "=" Expression
+ConsoleStatement ::= "console" "." "log" "(" Expression ")" ";"
+Block            ::= "{" { Statement } "}"
+Expression       ::= Term { ("+" | "-" | "*" | "/") Term }
+Term             ::= Identifier | Number | "(" Expression ")"
+Identifier       ::= letter { letter | digit | "_" }
+Number           ::= digit { digit }
+letter           ::= "a" | ... | "z" | "A" | ... | "Z"
+digit            ::= "0" | ... | "9"
+
+---------------------------------------------------------------------
+Descripción de los constructores del lenguaje:
+
+- ArrayDeclaration: declara un array con "let" y una lista de expresiones.
+  Ejemplo: let numeros = [1, 2, 3];
+
+- ForStatement: bucle for con inicialización, condición y actualización.
+  La condición es una expresión aritmética: el bucle se ejecuta mientras
+  la expresión sea distinta de cero (valor verdadero).
+  Ejemplo: for (i = 3 i; i = i - 1) { console.log(i); }
+
+- ConsoleStatement: imprime el resultado de una expresión en consola.
+  Ejemplo: console.log(10 + 5);
+
+- Expression: expresión aritmética con operadores +, -, *, /.
+  Nota: los operadores tienen la misma precedencia (evaluación izq. a der.).
+
+- Identifier: nombre de variable. Empieza con letra, puede contener
+  letras, dígitos y guiones bajos.
+
+- Number: literal numérico entero positivo.
+---------------------------------------------------------------------

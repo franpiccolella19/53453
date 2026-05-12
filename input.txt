@@ -1,0 +1,6 @@
+let notas = [8, 6, 9, 7, 10];
+console.log(8 + 6 + 9 + 7 + 10);
+for (cuenta = 5 cuenta; cuenta = cuenta - 1) {
+    console.log(cuenta);
+}
+console.log(100 / 4);

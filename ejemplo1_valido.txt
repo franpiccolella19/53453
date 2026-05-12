@@ -1,0 +1,3 @@
+let valores = [5, 10, 15];
+console.log(5 + 10);
+console.log(100 - 25);
