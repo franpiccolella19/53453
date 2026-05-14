@@ -32,7 +32,7 @@ El analizador realiza cuatro tareas:
 1. **Análisis léxico y sintáctico** — valida la entrada e informa errores con número de línea y columna.
 2. **Tabla de lexemas-tokens** — muestra cada lexema reconocido con su categoría y línea.
 3. **Árbol de análisis sintáctico (CST)** — representación en texto del árbol concreto.
-4. **Interpretación** — ejecuta el programa y muestra la salida, como lo haría un intérprete básico.
+4. **Interpretación** — muestra el código fuente y lo ejecuta como lo haría un intérprete básico.
 
 ---
 
@@ -44,58 +44,59 @@ El analizador realiza cuatro tareas:
 | npm         | 8 o superior   |
 | Java (JRE)  | 1.8 o superior |
 
-Verificar instalación:
+---
 
-```bash
-node -v
-npm -v
-java -version
+## Estructura del repositorio
+
+```
+53453/                          ← raíz del repositorio
+├── README.md
+├── gramatica.txt               ← gramática asignada en texto
+├── ejemplo1_valido.txt
+├── ejemplo2_valido.txt
+├── ejemplo3_invalido.txt
+├── ejemplo4_invalido.txt
+└── analizador/                 ← proyecto Node.js
+    ├── index.js
+    ├── CustomJSSubsetVisitor.js
+    ├── JSSubset.g4
+    ├── package.json
+    ├── antlr-4.9.2-complete.jar
+    ├── input.txt
+    ├── ejemplo1_valido.txt
+    ├── ejemplo2_valido.txt
+    ├── ejemplo3_invalido.txt
+    ├── ejemplo4_invalido.txt
+    └── generated/
+        ├── JSSubsetLexer.js
+        ├── JSSubsetParser.js
+        ├── JSSubsetListener.js
+        └── JSSubsetVisitor.js
 ```
 
 ---
 
-## Instalación
+## Pasos para ejecutar
 
-1. Clonar o descargar el repositorio.
-2. Desde la carpeta raíz del proyecto, instalar dependencias:
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/franpiccolella19/53453.git
+```
+
+### 2. Entrar a la carpeta del proyecto
+
+```bash
+cd 53453/analizador
+```
+
+### 3. Instalar dependencias
 
 ```bash
 npm install
 ```
 
----
-
-## Estructura del proyecto
-
-```
-/
-├── JSSubset.g4                    ← Gramática ANTLR4
-├── index.js                       ← Programa principal
-├── CustomJSSubsetVisitor.js       ← Visitor con semántica (intérprete)
-├── antlr-4.9.2-complete.jar       ← Herramienta ANTLR
-├── generated/                     ← Código generado automáticamente por ANTLR
-│   ├── JSSubsetLexer.js
-│   ├── JSSubsetParser.js
-│   ├── JSSubsetListener.js
-│   └── JSSubsetVisitor.js
-├── input.txt                      ← Entrada por defecto
-├── ejemplo1_valido.txt
-├── ejemplo2_valido.txt
-├── ejemplo3_invalido.txt
-└── ejemplo4_invalido.txt
-```
-
----
-
-## Ejecución
-
-### Con el archivo de entrada por defecto (`input.txt`):
-
-```bash
-npm start
-```
-
-### Con un archivo específico:
+### 4. Ejecutar con un ejemplo
 
 ```bash
 node index.js ejemplo1_valido.txt
@@ -104,12 +105,11 @@ node index.js ejemplo3_invalido.txt
 node index.js ejemplo4_invalido.txt
 ```
 
-### Sin archivo (ingreso por teclado):
+### 5. Ejecutar con el archivo por defecto (input.txt)
 
 ```bash
-node index.js
+npm start
 ```
-> Escribir el código y presionar **Ctrl+D** (Linux/Mac) o **Ctrl+Z + Enter** (Windows) para finalizar.
 
 ---
 
@@ -131,7 +131,7 @@ console.log(100 - 25);
 
 ---
 
-### ejemplo2_valido.txt — Bucle `for` con contador
+### ejemplo2_valido.txt — Bucle for con contador
 
 ```javascript
 let resultado = [];
@@ -150,9 +150,6 @@ console.log(3 + 4 * 2);
 2
 14
 ```
-
-> ⚠ La gramática no soporta precedencia de operadores. Las expresiones se evalúan de izquierda a derecha.
-> Así, `3 + 4 * 2` equivale a `(3 + 4) * 2 = 14`.
 
 ---
 
@@ -177,42 +174,25 @@ let arr = [1, 2, 3];
 console.log(10 % 3);
 ```
 
-**Errores reportados:**
+**Error reportado:**
 ```
 → Linea 2, columna 15: token recognition error at: '%'
-→ Linea 2, columna 17 (token: '3'): extraneous input '3' expecting ')'
 ```
 
 ---
 
 ## Sintaxis del `for` en este lenguaje
 
-La estructura del `for` en esta gramática es:
-
 ```
-for ( <init> <condicion> ; <actualizacion> ) { <cuerpo> }
+for ( <inicializacion> <condicion> ; <actualizacion> ) { <cuerpo> }
 ```
 
-Ejemplo: el bucle corre mientras `contador` sea distinto de cero (valor verdadero).
+El loop se ejecuta mientras la condición sea distinta de cero. Ejemplo:
 
 ```javascript
-for (contador = 5 contador; contador = contador - 1) {
-    console.log(contador);
+for (i = 3 i; i = i - 1) {
+    console.log(i);
 }
 ```
 
----
-
-## Regenerar el Lexer y Parser (opcional)
-
-Si se modifica `JSSubset.g4`, regenerar los archivos con:
-
-```bash
-npm run generate
-```
-
----
-
-## Gramática ANTLR4 (`JSSubset.g4`)
-
-Ver el archivo `JSSubset.g4` en la raíz del proyecto.
+Imprime: `3`, `2`, `1`
